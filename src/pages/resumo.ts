@@ -4,7 +4,13 @@ import { atualizarResumo } from '../components/Resumo';
 
 inicializarPagina();
 
-document.addEventListener('DOMContentLoaded', () => {
+const initResumo = () => {
   const gerenciador = new GerenciadorFinanceiro();
   atualizarResumo(gerenciador);
-});
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initResumo);
+} else {
+  initResumo();
+}

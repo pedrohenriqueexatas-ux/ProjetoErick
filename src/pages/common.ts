@@ -2,7 +2,10 @@ import { inicializarNavbar } from '../components/Navbar';
 
 // Inicializa componentes comuns a todas as páginas
 export function inicializarPagina(): void {
-  document.addEventListener('DOMContentLoaded', () => {
-    inicializarNavbar();
-  });
+  const init = () => inicializarNavbar();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 }
