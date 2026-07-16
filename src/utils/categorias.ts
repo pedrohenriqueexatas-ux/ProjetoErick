@@ -11,6 +11,9 @@ export const categoriasReceita: string[] = [
   'Investimentos',
   'Vendas',
   'Presentes',
+  'Aluguéis',
+  'Bônus',
+  'Pensão',
   'Outros',
 ];
 
