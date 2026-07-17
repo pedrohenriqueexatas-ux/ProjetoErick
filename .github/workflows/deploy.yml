@@ -1,25 +1,20 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Roda a action toda vez que um push é feito para a branch main
   push:
     branches: ["main", "master"]
-  # Permite rodar a action manualmente na aba Actions
   workflow_dispatch:
 
-# Configura as permissões para o token do GITHUB
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Permite apenas um deploy concorrente
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  # Job responsável por buildar (compilar) e publicar
   deploy:
     environment:
       name: github-pages
@@ -28,27 +23,27 @@ jobs:
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
-        
+
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '24'
           cache: 'npm'
-          
+
       - name: Instalar Dependências
         run: npm ci
-        
-      - name: Build do Projeto (Vite)
+
+      - name: Build do Projeto (Vite compila TypeScript → JavaScript)
         run: npm run build
-        
+
       - name: Setup GitHub Pages
-        uses: actions/configure-pages@v4
-        
-      - name: Upload dos artefatos do build (pasta dist)
+        uses: actions/configure-pages@v5
+
+      - name: Upload da pasta dist para o GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
-          
+
       - name: Publicar no GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
